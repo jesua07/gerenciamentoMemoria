@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Estrutura de uma pagina na memoria
 typedef struct {
     int numeroPagina; // Numero da pagina
     int referenciada; // Bit de referencia
 } Pagina;
 
-// Funcao para encontrar a pagina menos recentemente usada
+// Funcao para encontrar a pagina mais antiga
 int encontrarLRU(Pagina *paginas, int numPaginas) {
     int indiceLRU = 0;
     int referenciaLRU = paginas[0].referenciada;
@@ -39,8 +38,8 @@ int main() {
 
     Pagina *quadros = (Pagina *)malloc(numQuadros * sizeof(Pagina));
     for (int i = 0; i < numQuadros; i++) {
-        quadros[i].numeroPagina = -1; // Inicializa com -1 para indicar que o quadro esta vazio
-        quadros[i].referenciada = 0; // Inicializa com 0 o bit de referencia
+        quadros[i].numeroPagina = -1;
+        quadros[i].referenciada = 0;
     }
 
     int numFaltas = 0;

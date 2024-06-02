@@ -1,19 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Estrutura de uma página de memória
 typedef struct {
     int numeroPagina;
 } Pagina;
 
-// Função para inicializar uma página de memória
 Pagina inicializarPagina(int numeroPagina) {
     Pagina pagina;
     pagina.numeroPagina = numeroPagina;
     return pagina;
 }
 
-// Função para encontrar a página menos recentemente utilizada (FIFO)
+// Função para encontrar a página mais antiga
 int encontrarPaginaLRU(Pagina *paginas, int numPaginas) {
     int indiceMinimo = 0;
     for (int i = 1; i < numPaginas; i++) {
@@ -23,7 +21,6 @@ int encontrarPaginaLRU(Pagina *paginas, int numPaginas) {
     return indiceMinimo;
 }
 
-// Função principal para simular a substituição de página usando FIFO
 void simularFIFO(int *referencias, int numReferencias, int numFrames) {
     Pagina *paginas = (Pagina *)malloc(numFrames * sizeof(Pagina));
     int faltasPagina = 0;
@@ -46,7 +43,7 @@ void simularFIFO(int *referencias, int numReferencias, int numFrames) {
             }
         }
 
-        // Se a página não estiver na memória, substituir a página menos recentemente utilizada
+        // Se a página não estiver na memória, substituir a página mais antiga
         if (!paginaEncontrada) {
             int indicePaginaLRU = encontrarPaginaLRU(paginas, numFrames);
             paginas[indicePaginaLRU].numeroPagina = paginaAtual;
@@ -54,7 +51,6 @@ void simularFIFO(int *referencias, int numReferencias, int numFrames) {
         }
     }
 
-    // Imprimir resultados
     printf("FIFO:\n");
     printf("Paginas de memoria final: ");
     for (int i = 0; i < numFrames; i++) {
